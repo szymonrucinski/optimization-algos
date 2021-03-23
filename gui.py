@@ -1,60 +1,82 @@
 from tkinter import *
-# from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
-from matplotlib.figure import Figure
-
+from bisection import bisection_test
 
  
  
 window = Tk()
  
 window.title("Task 1 - Ruciński & Moszczyński")
-window.minsize(600,400)
+window.minsize(600,100)
  
-def clickMe():
-    pass
+def run():
+    fields_not_empty  = function.get() and epsilon.get() and  method.get() and upper_limit.get() and lower_limit.get() and iterations.get()
+    
+    if method.get() == "bisection" and fields_not_empty:
+        bisection_test(function.get(),upper_limit.get(), lower_limit.get(), float(epsilon.get()), int(iterations.get()))
+    elif method.get() =="dychotomy" and fields_not_empty:
+        pass
+    else:
+        messagebox.showerror("Error!", "Failure! At Least one of the entries is empty!")
 
-label = Label(window, text = "Function")
-label.grid(column = 0, row = 0)
-label.configure(text= 'Function')
 
 
-epsilon_label = Label(window, text = "Enter Function")
-epsilon_label.grid(column = 2, row =  0, padx=(50,10))
+#################1st column FUNCTION AND EPSILON################################
+function_label = Label(window, width=15,text = "Function")
+function_label.grid(column = 0, row =  0, padx=(30,10))
+
+function = StringVar()
+function_entry = Entry(window, width = 15, textvariable = function)
+function_entry.grid(column = 0, row =  1, padx=(30,10))
+
+epsilon_label = Label(window, width=15,text = "Epsilon")
+epsilon_label.grid(column = 0, row =  2, padx=(30,10))
 epsilon_label.configure(text= 'Epsilon')
 
- 
-function = StringVar()
-nameEntered = Entry(window, width = 15, textvariable = function)
-nameEntered.grid(column = 0, row = 1)
-
 epsilon = StringVar()
-epsilonEntered = Entry(window, width = 15, textvariable = epsilon)
-epsilonEntered.grid(column = 2, row = 1, padx=(50,10))
- 
- 
-button = Button(window, text = "Click Me", command = clickMe)
-button.grid(column= 0, row = 2)
+epsilon_entry = Entry(window, width = 15, textvariable = epsilon)
+epsilon_entry.grid(column = 0, row = 3, padx=(30,10))
 
 
 
-# RADIO BUTTONS 
-
-# Tkinter string variable 
-# able to store any string value 
-
-radio_1 = Radiobutton(window, text = 'Bisection method')
-radio_2 = Radiobutton(window, text = 'Dichotomous search')
-radio_1.grid(column= 3, row = 0, padx=(35,10))
-radio_2.grid(column= 3, row = 1, padx=(50,10))
 
 
-f = Figure()
-
-# canvas = FigureCanvasTkAgg(f, master=window)
-# canvas.draw()
-# canvas.get_tk_widget().pack(side="top", fill="both", expand=1)
-# canvas._tkcanvas.grid(column= 3,fill="both", expand=1)
 
 
+#################2nd column UPPER AND LOWER limits################################
+upper_limit_label = Label(window, width=15,text = "Upper limit")
+upper_limit_label.grid(column = 1, row =  0, padx=(30,10))
+
+upper_limit = StringVar()
+upper_limit_entry = Entry(window, width = 15, textvariable = upper_limit)
+upper_limit_entry.grid(column = 1, row = 1,padx=(30,10))
+
+lower_limit_label = Label(window, width=15,text = "Lower limit")
+lower_limit_label.grid(column = 1, row =  2, padx=(30,10))
+
+lower_limit = StringVar()
+lower_limit_entry = Entry(window, width = 15, textvariable = lower_limit)
+lower_limit_entry.grid(column = 1, row = 3, padx=(30,10))
+
+
+
+
+
+################### 3RD COLUMN RADIO AND ITERATIONS###############################
+iteration_limit_label = Label(window, width=15,text = "Limit of iterations")
+iteration_limit_label.grid(column = 2, row =  0, padx=(30,10))
+
+iterations = StringVar()
+iteration_limit = Entry(window, width = 15, textvariable = iterations)
+iteration_limit.grid(column = 2, row = 1, padx=(30,10))
+
+method = StringVar()
+radio_1 = Radiobutton(window, text = 'Bisection method',variable=method, value="bisection")
+radio_2 = Radiobutton(window, text = 'Dichotomous search', variable=method, value="dychotomy")
+radio_1.grid(column= 2, row = 2, padx=(30,10))
+radio_2.grid(column= 2, row = 3, padx=(45,10))
+
+#Run program
+button = Button(window, text = "Run", command = run)
+button.grid(column= 3, row = 2, padx=(30,10))
  
 window.mainloop()
