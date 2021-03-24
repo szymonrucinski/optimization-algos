@@ -1,5 +1,7 @@
 from Equation import Expression
 import matplotlib.pyplot as plt
+import numpy as np
+
 
 def step_one(a, b):
     x_0 = (a + b) / 2
@@ -48,27 +50,20 @@ def bisec(fun, a, b, eps, it_limit):
 
 
 
-def bisection_test(fun, a, b, eps, it_limit):
-        # x axis values
-    x = [1,2,3]
-    # corresponding y axis values
-    y = [2,4,1]
-    
-    # plotting the points 
+def draw_bisection(fun, a, b, eps, it_limit):
+
+    x = np.linspace(a,b,200)
+    y = fun(x)
+
+    x_min = bisec(fun,a,b,eps,it_limit)
+    y_min = fun(x_min)
+
+    # plotting the points
+    plt.plot(x_min,y_min,'ro')  
     plt.plot(x, y)
     
-    # naming the x axis
     plt.xlabel('x - axis')
-    # naming the y axis
     plt.ylabel('y - axis')
+    plt.title('Minimum')
     
-    # giving a title to my graph
-    plt.title('My first graph!')
-    
-    # function to show the plot
     plt.show()
-
-# fun = Expression("(x-3)^2", ["x"])
-# print(fun)
-# a = bisec(fun, 0, 150, 0.02, 10)
-# print(a)
