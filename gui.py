@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
-from bisection import bisection_test
+from bisection import draw_bisection
+from Equation import Expression
 
  
  
@@ -11,9 +12,11 @@ window.minsize(600,100)
  
 def run():
     fields_not_empty  = function.get() and epsilon.get() and  method.get() and upper_limit.get() and lower_limit.get() and iterations.get()
-    
+    print(function.get())
+    fun = Expression(function.get(),["x"])
+
     if method.get() == "bisection" and fields_not_empty:
-        bisection_test(function.get(),upper_limit.get(), lower_limit.get(), float(epsilon.get()), int(iterations.get()))
+        draw_bisection(fun,int(upper_limit.get()), int(lower_limit.get()), float(epsilon.get()), int(iterations.get()))
     elif method.get() =="dychotomy" and fields_not_empty:
         pass
     else:
