@@ -48,19 +48,20 @@ epsilon_entry.grid(column = 0, row = 3, padx=(30,10))
 
 
 #################2nd column UPPER AND LOWER limits################################
-upper_limit_label = Label(window, width=15,text = "Upper limit")
-upper_limit_label.grid(column = 1, row =  0, padx=(30,10))
-
-upper_limit = StringVar()
-upper_limit_entry = Entry(window, width = 15, textvariable = upper_limit)
-upper_limit_entry.grid(column = 1, row = 1,padx=(30,10))
-
 lower_limit_label = Label(window, width=15,text = "Lower limit")
-lower_limit_label.grid(column = 1, row =  2, padx=(30,10))
+lower_limit_label.grid(column = 1, row =  0, padx=(30,10))
 
 lower_limit = StringVar()
 lower_limit_entry = Entry(window, width = 15, textvariable = lower_limit)
-lower_limit_entry.grid(column = 1, row = 3, padx=(30,10))
+lower_limit_entry.grid(column = 1, row = 1, padx=(30,10))
+
+
+upper_limit_label = Label(window, width=15,text = "Upper limit")
+upper_limit_label.grid(column = 1, row =  2, padx=(30,10))
+
+upper_limit = StringVar()
+upper_limit_entry = Entry(window, width = 15, textvariable = upper_limit)
+upper_limit_entry.grid(column = 1, row = 3,padx=(30,10))
 
 
 
