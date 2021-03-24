@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import messagebox
 from bisection import draw_bisection
+from dichotomy import draw_dichotomy
 from Equation import Expression
 
  
@@ -17,8 +18,8 @@ def run():
 
     if method.get() == "bisection" and fields_not_empty:
         draw_bisection(fun,int(upper_limit.get()), int(lower_limit.get()), float(epsilon.get()), int(iterations.get()))
-    elif method.get() =="dychotomy" and fields_not_empty:
-        pass
+    elif method.get() =="dichotomy" and fields_not_empty:
+        draw_dichotomy(fun, int(lower_limit.get()), int(upper_limit.get()), float(epsilon.get()), int(iterations.get()))
     else:
         messagebox.showerror("Error!", "Failure! At Least one of the entries is empty!")
 
@@ -75,7 +76,7 @@ iteration_limit.grid(column = 2, row = 1, padx=(30,10))
 
 method = StringVar()
 radio_1 = Radiobutton(window, text = 'Bisection method',variable=method, value="bisection")
-radio_2 = Radiobutton(window, text = 'Dichotomous search', variable=method, value="dychotomy")
+radio_2 = Radiobutton(window, text = 'Dichotomous search', variable=method, value="dichotomy")
 radio_1.grid(column= 2, row = 2, padx=(30,10))
 radio_2.grid(column= 2, row = 3, padx=(45,10))
 
