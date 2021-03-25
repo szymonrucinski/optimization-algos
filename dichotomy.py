@@ -41,12 +41,14 @@ def draw_dichotomy(fun, a, b, delta, it_limit):
     y = fun(x)
 
     x_min = dicho(fun, a, b, delta, it_limit)
-    y_min = fun(x_min)
+    y_min1 = fun(x_min-delta)
+    y_min2 = fun(x_min+delta)
 
-    print("Local Minimum of the function in interval", a, ",", b, " is a point: (", x_min, ", ", y_min, ").")
+    print("Local Minimum of the function in interval", a, ",", b, " is in an interval between points: (", x_min, ", ", y_min1, "), and (", x_min, ", ", y_min2, ").")
 
     # plotting the points
-    plt.plot(x_min, y_min, 'ro')
+    plt.plot(x_min-delta, y_min1, 'ro')
+    plt.plot(x_min+delta, y_min2, 'ro')
     plt.plot(x, y)
 
     plt.xlabel('x - axis')
