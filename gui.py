@@ -17,7 +17,7 @@ def run():
     fun = Expression(function.get(),["x"])
 
     if method.get() == "bisection" and fields_not_empty:
-        draw_bisection(fun,int(upper_limit.get()), int(lower_limit.get()), float(epsilon.get()), int(iterations.get()))
+        draw_bisection(fun,int(lower_limit.get()), int(upper_limit.get()), float(epsilon.get()), int(iterations.get()))
     elif method.get() =="dichotomy" and fields_not_empty:
         draw_dichotomy(fun, int(lower_limit.get()), int(upper_limit.get()), float(epsilon.get()), int(iterations.get()))
     else:
