@@ -2,6 +2,7 @@ from Equation import Expression
 import matplotlib.pyplot as plt
 import numpy as np
 
+from unimodal_check import is_unimodal
 
 def step_fun(a, b, delta):
     x0 = (a + b) / 2
@@ -40,33 +41,35 @@ def dicho(fun, a, b, delta, it_limit):
 
 
 def draw_dichotomy(fun, a, b, delta, it_limit):
-    x = np.linspace(a, b, 200)
-    y = fun(x)
 
-    x_min, interval_list = dicho(fun, a, b, delta, it_limit)
-    y_min1 = fun(x_min-delta)
-    y_min2 = fun(x_min+delta)
+    if is_unimodal(fun, a, b):
+        x = np.linspace(a, b, 200)
+        y = fun(x)
 
-    print(f"Local Minimum of the function in interval ({a}, {b}) is in an interval between points:"
-          f" ( {x_min}, {y_min1} ), and ({x_min}, {y_min2}).")
+        x_min, interval_list = dicho(fun, a, b, delta, it_limit)
+        y_min1 = fun(x_min-delta)
+        y_min2 = fun(x_min+delta)
 
-    # plotting the points
+        print(f"Local Minimum of the function in interval ({a}, {b}) is in an interval between points:"
+              f" ( {x_min}, {y_min1} ), and ({x_min}, {y_min2}).")
 
-    plt.plot(x, y)
-    i = 0
-    while i < len(interval_list):
-        lower_limit = interval_list[i]
-        upper_limit = interval_list[i+1]
-        print(f"Searched interval is: ( {lower_limit}, {upper_limit})")
-        plt.plot(lower_limit, fun(lower_limit), 'g|')
-        plt.plot(upper_limit, fun(upper_limit), 'g|')
-        i = i + 2
+        # plotting the points
 
-    plt.plot(x_min - delta, y_min1, 'r|')
-    plt.plot(x_min + delta, y_min2, 'r|')
-    plt.xlabel('x - axis')
-    plt.ylabel('y - axis')
-    plt.title('Minimum')
+        plt.plot(x, y)
+        i = 0
+        while i < len(interval_list):
+            lower_limit = interval_list[i]
+            upper_limit = interval_list[i+1]
+            print(f"Searched interval is: ( {lower_limit}, {upper_limit})")
+            plt.plot(lower_limit, fun(lower_limit), 'g|')
+            plt.plot(upper_limit, fun(upper_limit), 'g|')
+            i = i + 2
 
-    plt.show()
+        plt.plot(x_min - delta, y_min1, 'r|')
+        plt.plot(x_min + delta, y_min2, 'r|')
+        plt.xlabel('x - axis')
+        plt.ylabel('y - axis')
+        plt.title('Minimum')
+
+        plt.show()
 

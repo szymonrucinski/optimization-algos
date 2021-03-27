@@ -3,6 +3,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import math
 
+from unimodal_check import is_unimodal
+
 
 def step_one(a, b):
     l = b-a
@@ -38,35 +40,29 @@ def mark_intervals(plot, interval,fun):
         plot.scatter(start,fun(start), marker="|", linewidths=2, c='black')
         plot.scatter(end,fun(end), marker="|", linewidths=2, c='black')
 
-def is_unimodal(fun,a,b):
-    mid_point = (a+b)/2
-    if fun(a) > fun(mid_point) and fun(b) > fun(mid_point):
-        text = f"Function is unimodal in a range: <{a}, {b}>"
-        return text
-    else:
-        return "pass"
 
 
 def draw_bisection(fun, a, b, eps, it_limit):
 
-    x = np.linspace(a,b,200)
-    y = fun(x)
-    x_min, intervals = bisec(fun, a, b, eps, it_limit)
-    y_min = fun(x_min)
-    print('local:',x_min)
-    print(intervals)
+    if is_unimodal(fun, a, b):
+        x = np.linspace(a,b,200)
+        y = fun(x)
+        x_min, intervals = bisec(fun, a, b, eps, it_limit)
+        y_min = fun(x_min)
+        print('local:',x_min)
+        print(intervals)
 
-    # plotting the points
-    plt.plot(x_min,y_min,'ro')
-    mark_intervals(plt, intervals, fun)
-    plt.plot(x, y)
-    
-    plt.xlabel('x - axis')
-    plt.ylabel('y - axis')
-    plt.title('Minimum - Bisection')
-    plt.figtext(0.5, 0.01, is_unimodal(fun,a,b), ha="center", fontsize=10, bbox={"facecolor":"orange", "alpha":0.5, "pad":5})
-    
-    plt.show()
+        # plotting the points
+        plt.plot(x_min,y_min,'ro')
+        mark_intervals(plt, intervals, fun)
+        plt.plot(x, y)
+
+        plt.xlabel('x - axis')
+        plt.ylabel('y - axis')
+        plt.title('Minimum - Bisection')
+        plt.figtext(0.5, 0.01, is_unimodal(fun,a,b), ha="center", fontsize=10, bbox={"facecolor":"orange", "alpha":0.5, "pad":5})
+
+        plt.show()
 
 
 
