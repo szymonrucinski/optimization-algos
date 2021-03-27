@@ -54,4 +54,4 @@ def draw_bisection(fun, a, b, eps, it_limit):
 
 def fun(x):
     return math.log(x)
-draw_bisection(Expression("(1/2)*(4-2*x^2)*x^2",["x"]), -2, 2, 0.1, 40)
+#draw_bisection(Expression("(1/2)*(4-2*x^2)*x^2",["x"]), -2, 2, 0.1, 40)
