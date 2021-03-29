@@ -2,7 +2,6 @@ from Equation import Expression
 import matplotlib.pyplot as plt
 import numpy as np
 import math
-
 from unimodal_check import is_unimodal
 
 
