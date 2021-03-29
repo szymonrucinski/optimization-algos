@@ -35,9 +35,15 @@ def bisec(fun,a,b,epsilon,it_limit):
     return x_0,intervals
 
 def mark_intervals(plot, interval,fun):
-    for (start, end) in interval:
+    for i,(start, end) in enumerate(interval):
         plot.scatter(start,fun(start), marker="|", linewidths=2, c='black')
         plot.scatter(end,fun(end), marker="|", linewidths=2, c='black')
+        if i == len(interval)-1:
+            break
+
+    (start, end) = interval[-1]
+    plot.scatter(start,fun(start), marker="|", linewidths=2, c='red')
+    plot.scatter(end,fun(end), marker="|", linewidths=2, c='red')
 
 
 
@@ -52,7 +58,7 @@ def draw_bisection(fun, a, b, eps, it_limit):
         print(intervals)
 
         # plotting the points
-        plt.plot(x_min,y_min,'ro')
+        # plt.plot(x_min,y_min,'ro')
         mark_intervals(plt, intervals, fun)
         plt.plot(x, y)
 
@@ -60,11 +66,9 @@ def draw_bisection(fun, a, b, eps, it_limit):
         plt.ylabel('y - axis')
         plt.title('Minimum - Bisection')
         plt.figtext(0.5, 0.01, is_unimodal(fun,a,b), ha="center", fontsize=10, bbox={"facecolor":"orange", "alpha":0.5, "pad":5})
-
         plt.show()
 
 
 
-def fun(x):
-    return math.log(x)
-#draw_bisection(Expression("(1/2)*(4-2*x^2)*x^2",["x"]), -2, 2, 0.1, 40)
+
+draw_bisection(Expression("(1/2)*(4-2*x^2)*x^2",["x"]), -2, 2, 0.1, 40)
