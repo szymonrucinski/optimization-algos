@@ -19,7 +19,7 @@ def dicho(fun, a, b, delta, it_limit):
     x0, x1, x2 = step_fun(a, b, delta)
     iterations = 0
 
-    while abs((a - b) / 2) > delta and iterations <= it_limit:
+    while abs((a - b) / 2) > delta and iterations < it_limit:
         iterations = iterations + 1
         interval_list.append(a)
         interval_list.append(b)
