@@ -1,0 +1,199 @@
+\documentclass{classrep}
+\usepackage[utf8]{inputenc}
+\frenchspacing
+
+\usepackage{graphicx}
+\usepackage{comment}
+\usepackage{float}
+\usepackage{geometry}
+\usepackage{listings}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[hidelinks]{hyperref}
+\usepackage{amssymb}
+
+\usepackage{amsmath, amssymb, mathtools, icomma}
+
+\usepackage{fancyhdr, lastpage}
+\pagestyle{fancyplain}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\cfoot{\thepage\ / \pageref*{LastPage}}
+
+
+\studycycle{Informatyka, studia dzienne, II st.}
+\coursesemester{I}
+
+\coursename{Sztuczna inteligencja dla optymalizacji oprogramowania}
+\courseyear{2021/2022}
+
+\courseteacher{mgr inż. Paweł Tarasiuk}
+\coursegroup{sroda, 12:15}
+
+\author{%
+  \studentinfo[239703@edu.p.lodz.pl]{Szymon Ruciński}{239703}\\
+  \studentinfo[239690@edu.p.lodz.pl]{Krzysztof Moszczyński}{239690}%
+}
+
+\title{Zadanie 1: optymalizacja jednowymiarowa}
+
+\sloppy
+
+\begin{document}
+\maketitle
+\thispagestyle{fancyplain}
+
+\section{Cel}
+{Celem zadania bylo zaimplementowanie oraz porównanie skuteczności 2 metod optymalizacji funkcji jednowymiarowej: metody bisekcji oraz dychotomii.}
+
+\section{Wprowadzenie}
+{Celem implementacji jest znalezienie minimum funkcji w danym przedziale czyli najmniejszej liczby w zbiorze wartości funkcji $f(x)$. W celu znalezienia minimum wykorzystaliśmy 2 różne od siebie algorytmy: bisekcje oraz dychotomie.}
+\subsection{Bisekcja}
+{Pierwszym krokiem w metodzie bisekcji jest wyznaczenie przedziału nieufności ${L_0= \{a,b}\}$. Wspomniany przedział dzielimy na 4 ćwiartki, wyznaczając następujące punkty:$a,x_1,x_0,x_2,b$. Gdzie  ${x_0 =}$ \( \frac{a+b}{2} \)} to środek przedziału.
+Następnie liczymy wartość funkcji dla punktów $x_1, x_2, x_0$ oraz definiujemy \(\varepsilon\) dokładność wyniku.Kolejno sprawdzamy czy funkcja rośnie lub maleje na danym odcinku porównując wartości $f(x_1),f(x_0), f(x_2)$. W ten sposób określamy gdzie leży minimum. Jeżeli uzyskamy przedział, który spełnia kryterium stopu $L < 2$\(\varepsilon\) gdzie $L=b-a$ to zwracamy wynik, jeżeli nie to rozpoczynamy proces od nowa.
+% \includegraphics[width                                                          =\linewidth]{Images/local_minimum.png}
+
+\subsection{Dychotomia}
+{W metodzie dychotomii, podobnie jak przy bisekcji, najpierw wyznaczany jest przedział ufności ${L_0= \{a,b\}}$. Następnie wyznaczany jest środek tego przedziału ${x_0 =}$ \( \frac{a+b}{2} \) oraz punkty $x_1$ i $x_2$, które powstają przed odjęcie i dodanie wartości \( \delta \) podanej przez użytkownika. Porównywane są wartości funkcji w punkcie $x_1$ oraz $x_2$, a następnie na tej podstawie określa się po której stronie punktu $x_0$ znajduje się minimum. Drugą połowę przedziału odrzuca się i taką samą operację powtarza się na nowym przedziale.}
+
+\section{Opis implementacji}
+{Zadanie zostało zrealizowane w języku programowania Python. Interfejs graficzny został stworzony za pomocą wbudowanej biblioteki Tkinter. Do prezentowania wykresów użyliśmy biblioteki matplotlib. Użytkownik wprowadza z poziomu GUI funkcje dla, której ma być policzone minimum oraz $\varepsilon$, liczbę interacji, metodę optymalizacji oraz granice przedziału $a,b$.}
+\begin{center}
+\includegraphics[width=0.7\columnwidth]{Images/gui.png}
+\includegraphics[width=0.7\columnwidth]{Images/graph1.png}
+\end{center}
+Czerwonym punktem na wykresie zostaje oznaczone minimum czarne zaś linie ilustrują przedziały pośrednie, wyznaczane w trakcie kolejnych iteracji. Projekt został zrealizowany proceduralne nie obiektowo.
+
+
+\section{Materiały i metody}
+{Eksperymenty zostaly kolejno wykonane na komputerze z uzyciem stworzonego przez nas programu komputerowego,w którym implementujemy wyszczególnione poniżej metody minimalizacji funkcji jednej zmiennej:
+\begin{enumerate}
+  \item Bisekcja
+  \item Dychotomia
+\end{enumerate}
+
+
+}
+
+\section{Wyniki}
+W tej sekcji przedstawimy serię eksperymentów sprawdzających poprawność działania programu, oraz jego umiejętność radzenia sobie z niepoprawnymi danymi (na przykład z funkcjami w nieunimodalnych przedziałach). 
+
+W pierwszym eksperymencie zostały przetestowane obie metody w celu sprawdzenia umiejętności znalezienia minimum w funkcjach kwadratowych w przedziałach unimodalności. W pierwszej części algorytmy zostały przetestowane dla dużej dokładności, a w drugiej dla małej dokładności. Setup do pierwszej części został przedstawiony na Rysunku \ref{setup_wysoka_dokladnosc}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,keepaspectratio]{Images/kwadratowa wysoka dokładność bisekcja setup.png}
+    \caption[Funkcja kwadratowa wysoka dokładność setup]{Funkcja kwadratowa wysoka dokładność setup}
+    \label{setup_wysoka_dokladnosc}
+\end{figure}
+
+Poniżej na Rysunku \ref{bisekcja_wysoka_dokladnosc} i Rysunku \ref{dychotomia_wysoka_dokladnosc} zostały przedstawiony wykresy wygenerowane przez program. Zielone lub czarne kreski przedstawiają przedziały, które były brane pod uwagę przy wyznaczaniu minimum. Czerwone kropki lub kreski pokazują przedział ufności znalezionego minimum.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm,keepaspectratio]{Images/kwadratowa wysoka dokładność bisekcja wykres.png}
+    \caption[Funkcja kwadratowa wysoka dokładność bisekcja wykres]{Funkcja kwadratowa wysoka dokładność bisekcja wykres}
+    \label{bisekcja_wysoka_dokladnosc}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm,keepaspectratio]{Images/kwadratowa wysoka dokładność dychotomia wykres.png}
+    \caption[Funkcja kwadratowa wysoka dokładność dychotomia wykres]{Funkcja kwadratowa wysoka dokładność dychotomia wykres}
+    \label{dychotomia_wysoka_dokladnosc}
+\end{figure}
+
+Jak widać, przy wysokiej dokładności nie jesteśmy w stanie stwierdzić, która z metod radzi sobie lepiej z wyznaczaniem minimum. Na Rysunku \ref{setup_mala_dokladnosc} przedstawiony został setup do drugiej części eksperymentu. Tym razem przetestowana została mała dokładność przejawiająca się mniejszą liczbą dopuszczalnych iteracji oraz zwiększeniem wartości epsilon. Wyniki pokazane są na Rysunkach \ref{bisekcja_mala_dokladnosc} i \ref{dychotomia_mala_dokladnosc}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,keepaspectratio]{Images/kwadratowa_mała_dokładność_bisekcja_setup.png}
+    \caption[Funkcja kwadratowa mała dokładność setup]{Funkcja kwadratowa mała dokładność setup}
+    \label{setup_mala_dokladnosc}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm,keepaspectratio]{Images/kwadratowa mała dokładność bisekcja wykres.png}
+    \caption[Funkcja kwadratowa mała dokładność bisekcja wykres]{Funkcja kwadratowa mała dokładność bisekcja wykres}
+    \label{bisekcja_mala_dokladnosc}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm,keepaspectratio]{Images/kwadratowa mała dokładność dychotomia wykres.png}
+    \caption[Funkcja kwadratowa mała dokładność dychotomia wykres]{Funkcja kwadratowa małą dokładność dychotomia wykres}
+    \label{dychotomia_mala_dokladnosc}
+\end{figure}
+Jak widać zmniejszenie dokładności źle wpłynęło na precyzję metody bisekcji, jednak nie spowodowało prawie w ogóle zmiany w przypadku dychotomii, która dosyć precyzyjnie wyznaczyła przedział ufności minimum lokalnego.
+
+Drugi eksperyment polegał na podaniu funkcji, która nie jest unimodalna w przedziale. Program miał za zadanie poszukać przedziału unimodalności w niej i wypisać go w konsoli jeśli taki występował. Na Rysunku \ref{setup_nieunimodalna} możemy zobaczyć setup eksperymentu. Podajemy funkcję trzeciego stopnia z jednym minimum lokalnym, ale w nieunimodalnym przedziale. Rysunek \ref{wynik_nieunimodalna} przedstawia wynik wyświetlony w konsoli po próbie znalezienia minimum w tym przedziale.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,keepaspectratio]{Images/nieunimodalna setup.png}
+    \caption[Funkcja nieunimodalna setup]{Funkcja nieunimodalna setup}
+    \label{setup_nieunimodalna}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm,keepaspectratio]{Images/nieunimodalna wynik.png}
+    \caption[Funkcja nieunimodalna wynik]{Funkcja nieunimodalna wynik}
+    \label{wynik_nieunimodalna}
+\end{figure}
+
+Trzeci eksperyment sprawdzał zachowanie algorytmu kiedy podana funkcja nie ma minimum lokalnego, czyli jest na przykład stała. Setup do tego eksperymentu można zobaczyć na Rysunku \ref{setup_stala}, a wynik w konsoli na Rysunku \ref{wynik_stala}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,keepaspectratio]{Images/stała setup.png}
+    \caption[Funkcja stała setup]{Funkcja stała setup}
+    \label{setup_stala}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm,keepaspectratio]{Images/stała wynik.png}
+    \caption[Funkcja stała wynik]{Funkcja stała wynik}
+    \label{wynik_stala}
+\end{figure}
+
+Ostatnim eksperymentem było podanie funkcji czwartego stopnia, która posiada 2 minima lokalne. Program niestety nie poradził sobie ze stwierdzeniem tego, że funkcja nie jest unimodalna w tym przedziale i obliczył jedno z ekstremów. Setup do tego eksperymentu jest przedstawiony na Rysunku \ref{setup_czwartego}, a wynikowy wykres na Rysunku \ref{wynik_czwartego}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth,keepaspectratio]{Images/nieunimodalna błąd setup.png}
+    \caption[Funkcja czwartego stopnia setup]{Funkcja czwartego stopnia setup}
+    \label{setup_czwartego}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=10cm,keepaspectratio]{Images/nieunimodalna błąd wykres.png}
+    \caption[Funkcja czwartego stopnia wynik]{Funkcja czwartego stopnia wynik}
+    \label{wynik_czwartego}
+\end{figure}
+
+\section{Dyskusja}
+
+Pierwszy eksperyment pokazuje, że obydwie funkcje działają i znajdują lokalne minima bez większego problemu. Przy wysokiej dokładności nie można wskazać różnic między ich działaniem, ponieważ wyznaczone przez nie przedziały są bardzo podobne. Różnice widać dopiero przy drugiej części eksperymentu gdzie dokładność jest mniejsza. Obydwie metody przy każdej iteracji odrzucają połowę przedziału, więc szerokość ostatecznych przedziałów jest taka sama. Jednak przy małej dokładności można zaobserwować działanie obu algorytmów. Bisekcja może odrzucić prawą, lewą albo połowę lewej i połowę prawej strony co widać na Rysunku \ref{bisekcja_mala_dokladnosc}. Ostateczny przedział jest 2 razy mniejszy od poprzedniego przedziału i leży dokładnie w jego środku. Dychotomia może odrzucić tylko lewą albo prawą połowę przedziału i to ilustruje Rysunek \ref{dychotomia_mala_dokladnosc}. Granica ostatecznego przedziału leżąca w punkcie $x=0,5$ jest jednocześnie granicą poprzednio rozpatrywanego przedziału. Ten przykład pokazuje, że bisekcja może zapewniać większą precyzję oszacowania dokładnego punktu minimum, ponieważ dzięki niej prawdopodobieństwo, że będzie on leżał po środku ostatniego przedziału jest większe.
+
+Drugi oraz trzeci eksperyment pokazują prawidłowość działania algorytmu kiedy początkowy przedział funkcji nie jest unimodalny. Algorytm po wykryciu tego stara się znaleźć przedział unimodalności w tym zakresie funkcji i jeśli taki znajdzie wypisuje go w konsoli.
+
+Czwarty eksperyment pokazuje niedoskonałości programu. Algorytm twierdzi, że przedział funkcji jest unimodalny mimo że funkcja posiada 2 minima w tym zakresie (Rysunek \ref{wynik_czwartego}.
+
+\section{Wnioski}
+Zarówno bisekcja jak i dychotomia zapewniają bardzo podobną precyzję wyznaczania ekstremów funkcji. Bisekcja jednak posiada możliwość bardziej elastycznego odrzucania przedziałów przez co lepsze oszacowanie punktu minimum na podstawie ostatniego wyznaczonego przedziału jest bardziej prawdopodobne.
+
+Program używając obydwu metod nie ma problemów ze znalezieniem ekstremów w podanych funkcjach. Rzeczą, którą należałoby poprawić jest algorytm sprawdzający czy funkcja w podanym przedziale jest unimodalna. Na chwilę obecną funkcja nie jest w stanie określić tego ze stu-procentową pewnością.
+
+\begin{thebibliography}{0}
+  \bibitem{l2short} Alicja Romanowicz
+    \textsl{Minimalizacja funkcji jednej zmiennej}, dostępny online. 
+    \url{https://ftims.edu.p.lodz.pl/pluginfile.php/162148/mod_resource/content/2/Minimalizacja\%20funkcji\%20jednej\%20zmiennej}.
+    \bibitem{l2short} Douglas J. Wilde
+    \textsl{Optimum Seeking Methods}, 1964, dostępny online. 
+    \url{https://archive.org/details/optimumseekingme00wild/page/n5/mode/2up}.
+\end{thebibliography}
+
+\end{document}
