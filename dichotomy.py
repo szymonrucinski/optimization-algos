@@ -17,25 +17,25 @@ def dicho(fun, a, b, delta, it_limit):
 
     interval_list = []
     x0, x1, x2 = step_fun(a, b, delta)
-    iterations = 0
+    iterations = 1
+    interval_list.append(a)
+    interval_list.append(b)
 
     while abs((a - b) / 2) > delta and iterations < it_limit:
         iterations = iterations + 1
-        interval_list.append(a)
-        interval_list.append(b)
 
         if fun(x1) < fun(x2):
             b = x0
             x0, x1, x2 = step_fun(a, b, delta)
-            continue
 
         elif fun(x1) >= fun(x2):
             a = x0
             x0, x1, x2 = step_fun(a, b, delta)
-            continue
 
         else:
             break
+        interval_list.append(a)
+        interval_list.append(b)
     print(x0)
     return x0, interval_list
 
@@ -59,14 +59,19 @@ def draw_dichotomy(fun, a, b, delta, it_limit):
         i = 0
         while i < len(interval_list):
             lower_limit = interval_list[i]
-            upper_limit = interval_list[i+1]
-            print(f"Searched interval is: ( {lower_limit}, {upper_limit})")
-            plt.plot(lower_limit, fun(lower_limit), 'g|')
-            plt.plot(upper_limit, fun(upper_limit), 'g|')
+            upper_limit = interval_list[i + 1]
+            if i >= len(interval_list) - 2:
+                print(f"The minimum is within a range ({lower_limit}, {upper_limit}")
+                plt.plot(lower_limit, fun(lower_limit), 'r|')
+                plt.plot(upper_limit, fun(upper_limit), 'r|')
+            else:
+                print(f"Searched interval is: ( {lower_limit}, {upper_limit})")
+                plt.plot(lower_limit, fun(lower_limit), 'g|')
+                plt.plot(upper_limit, fun(upper_limit), 'g|')
             i = i + 2
 
-        plt.plot(x_min - delta, y_min1, 'r|')
-        plt.plot(x_min + delta, y_min2, 'r|')
+        #plt.plot(x_min - delta, y_min1, 'r|')
+        #plt.plot(x_min + delta, y_min2, 'r|')
         plt.xlabel('x - axis')
         plt.ylabel('y - axis')
         plt.title('Minimum')
