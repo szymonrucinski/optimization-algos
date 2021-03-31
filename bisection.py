@@ -21,13 +21,17 @@ def bisec(fun,a,b,epsilon,it_limit):
        
         x_1,x_2,x_0 = step_one(a,b)
         intervals.append((a,b))
+        
+        vx_1 = fun(x_1)
+        vx_0 = fun(x_0)
+        vx_2 = fun(x_2)
 
         if abs(b - a) <= 2*epsilon:
             break
 
-        elif fun(x_2) > fun(x_0) > fun(x_1):
+        elif vx_2 > vx_0 > vx_1:
             b = x_0
-        elif fun(x_2) < fun(x_0) < fun(x_1):
+        elif vx_2 < vx_0 < vx_1:
             a = x_0
         else:
             a = x_1

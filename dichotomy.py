@@ -28,12 +28,10 @@ def dicho(fun, a, b, delta, it_limit):
             b = x0
             x0, x1, x2 = step_fun(a, b, delta)
 
-        elif fun(x1) >= fun(x2):
+        else:
             a = x0
             x0, x1, x2 = step_fun(a, b, delta)
 
-        else:
-            break
         interval_list.append(a)
         interval_list.append(b)
     print(x0)
