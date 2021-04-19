@@ -81,7 +81,7 @@ przetestowane dla dużej dokładności, a w drugiej dla małej dokładności.
 Setup do pierwszej części został przedstawiony na Rysunku
 [setup~w~ysoka~d~okladnosc].
 
-![image](Images/kwadratowa wysoka dokładność bisekcja setup.png)
+![image](Images/kwadratowa_wysoka_dokładność_bisekcja_setup.png)
 [setup~w~ysoka~d~okladnosc]
 
 Poniżej na Rysunku [bisekcja~w~ysoka~d~okladnosc] i Rysunku
@@ -91,10 +91,10 @@ przedziały, które były brane pod uwagę przy wyznaczaniu minimum.
 Czerwone kropki lub kreski pokazują przedział ufności znalezionego
 minimum.
 
-![image](Images/kwadratowa wysoka dokładność bisekcja wykres.png)
+![image](Images/kwadratowa_wysoka_dokładność_bisekcja_wykres.png)
 [bisekcja~w~ysoka~d~okladnosc]
 
-![image](Images/kwadratowa wysoka dokładność dychotomia wykres.png)
+![image](Images/kwadratowa_wysoka_dokładność_dychotomia_wykres.png)
 [dychotomia~w~ysoka~d~okladnosc]
 
 Jak widać, przy wysokiej dokładności nie jesteśmy w stanie stwierdzić,
@@ -108,10 +108,10 @@ zwiększeniem wartości epsilon. Wyniki pokazane są na Rysunkach
 ![image](Images/kwadratowa_mała_dokładność_bisekcja_setup.png)
 [setup~m~ala~d~okladnosc]
 
-![image](Images/kwadratowa mała dokładność bisekcja wykres.png)
+![image](Images/kwadratowa_mała_dokładność_bisekcja_wykres.png)
 [bisekcja~m~ala~d~okladnosc]
 
-![image](Images/kwadratowa mała dokładność dychotomia wykres.png)
+![image](Images/kwadratowa_mała_dokładność_dychotomia_wykres.png)
 [dychotomia~m~ala~d~okladnosc]
 
 Jak widać zmniejszenie dokładności źle wpłynęło na precyzję metody
@@ -128,18 +128,18 @@ nieunimodalnym przedziale. Rysunek [wynik~n~ieunimodalna] przedstawia
 wynik wyświetlony w konsoli po próbie znalezienia minimum w tym
 przedziale.
 
-![image](Images/nieunimodalna setup.png) [setup~n~ieunimodalna]
+![image](Images/nieunimodalna_setup.png) [setup~n~ieunimodalna]
 
-![image](Images/nieunimodalna wynik.png) [wynik~n~ieunimodalna]
+![image](Images/nieunimodalna_wynik.png) [wynik~n~ieunimodalna]
 
 Trzeci eksperyment sprawdzał zachowanie algorytmu kiedy podana funkcja
 nie ma minimum lokalnego, czyli jest na przykład stała. Setup do tego
 eksperymentu można zobaczyć na Rysunku [setup~s~tala], a wynik w konsoli
 na Rysunku [wynik~s~tala].
 
-![image](Images/stała setup.png) [setup~s~tala]
+![image](Images/stała_setup.png) [setup~s~tala]
 
-![image](Images/stała wynik.png) [wynik~s~tala]
+![image](Images/stała_wynik.png) [wynik~s~tala]
 
 Ostatnim eksperymentem było podanie funkcji czwartego stopnia, która
 posiada 2 minima lokalne. Program niestety nie poradził sobie ze
@@ -150,7 +150,7 @@ Rysunku [wynik~c~zwartego].
 
 ![image](Images/nieunimodalna_bład_setup.png) [setup~c~zwartego]
 
-![image](Images/nieunimodalna błąd wykres.png) [wynik~c~zwartego]
+![image](Images/nieunimodalna_błąd_wykres.png) [wynik~c~zwartego]
 
 Dyskusja
 ========
