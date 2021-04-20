@@ -36,7 +36,7 @@ def update_hessian_approx(current_hessian_approx,delta_gradient, delta_x):
 
 def stop(current_gradient,eps):
     vector = current_gradient.flatten()
-    return math.sqrt(vector[0]**2 + vector[1]**2)< eps
+    return math.sqrt(vector[0]**2 + vector[1]**2) < eps
 
 
 def print_in_console(point, gradient,hessian):
@@ -47,21 +47,19 @@ def print_in_console(point, gradient,hessian):
     print("=============================================")
 
 def plot_graph(progress_x, progress_y):
+    fig = plt.figure()
     f = lambda x,y: 4 * np.power(x,2) + np.power(y,2) - 2 * x * y
     ax = plt.axes(projection="3d")
-    x = np.linspace(-5,5,20)
-    y = np.linspace(-5,5,20)
-    z = []
-    X,Y = np.meshgrid(x,y)
+    points = np.linspace(-5,5,20)
+    X,Y = np.meshgrid(points, points)
     Z = f(X,Y)
 
     P_X, P_Y = np.meshgrid(progress_x,progress_y)
     P_Z = f(P_X,P_Y)
-    print("SHAPE:",len(P_Z))
-    # print(z)
-    ax.scatter(P_X,P_Y,P_Z,color="y",s=20)
-    # ax.plot_surface(X, Y, Z, rstride=1, cstride=1,
-    #             cmap='viridis', edgecolor='none')
+    # reversed colorbar because of the bug present in matplotlib indexing.
+    p = ax.scatter(P_X,P_Y,P_Z,c=P_Z,cmap='viridis_r',s=20)
+    fig.colorbar(p, ax=ax)
+  
     ax.plot_wireframe(X,Y,Z)
     plt.show()
 
@@ -100,10 +98,8 @@ def dfp(x,y,it_num, eps):
         print_in_console(points[0], current_gradient, hessian_approx)
         if stop(current_gradient, eps):
             break
-    print(progress_x)
-    print(progress_y)
     plot_graph(np.asarray(progress_x), np.asarray(progress_y))
 
 
-dfp(x = -2., y = -2. ,it_num = 45, eps = 0.01)
+# dfp(x = -5., y = -5 ,it_num = 45, eps = 0.5)
 
