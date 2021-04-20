@@ -3,6 +3,8 @@ import copy
 import math
 import numdifftools as nd
 from line_search import get_alpha
+from mpl_toolkits import mplot3d
+import matplotlib.pyplot as plt
 #http://sms.am.put.poznan.pl/wp-content/uploads/2019/12/POPK_03.pdf
 #https://slideplayer.com/slide/4260069/
 
@@ -44,7 +46,24 @@ def print_in_console(point, gradient,hessian):
     print('\n'.join(['\t'.join([str(cell) for cell in row]) for row in hessian]))
     print("=============================================")
 
+def plot_graph(progress_x, progress_y):
+    f = lambda x,y: 4 * np.power(x,2) + np.power(y,2) - 2 * x * y
+    ax = plt.axes(projection="3d")
+    x = np.linspace(-5,5,20)
+    y = np.linspace(-5,5,20)
+    z = []
+    X,Y = np.meshgrid(x,y)
+    Z = f(X,Y)
 
+    P_X, P_Y = np.meshgrid(progress_x,progress_y)
+    P_Z = f(P_X,P_Y)
+    print("SHAPE:",len(P_Z))
+    # print(z)
+    ax.scatter(P_X,P_Y,P_Z,color="y",s=20)
+    # ax.plot_surface(X, Y, Z, rstride=1, cstride=1,
+    #             cmap='viridis', edgecolor='none')
+    ax.plot_wireframe(X,Y,Z)
+    plt.show()
 
 
 def dfp(x,y,it_num, eps):
@@ -52,28 +71,39 @@ def dfp(x,y,it_num, eps):
     #Macierz 2x2 o dodatnim wyznaczniku lub jednostkowa
     hessian_approx = np.identity(2)
     point = np.array([[x,y]],np.float64).transpose()
- 
+    #store points
+    progress_x = []
+    progress_y = []
+
     for i in range(0,it_num):
         current_gradient = gradient(point)
         #1) Compute approx. Newton , update direction
         direction = -1 * np.dot(hessian_approx, current_gradient)
-        #2) Line search (inexact)
         points = []
         points.append(point)
+        #2) Line search to get alpha ~ most optimal "step lenght"
         alpha = get_alpha(fun, point)
-        ###(function)
+        #3) approximate new point
         point = point + np.dot(alpha,direction)
         points.append(point)
         delta_x = points[1] - points[0]
-        #3) Computer gradient for point x_(i+1)
+        #4) Compute gradient for new point
         next_gradient = gradient(point)
         delta_gradient = next_gradient - current_gradient 
-        #4) Update Hessian
+        #5) Update inverse Hessian
         hessian_approx = update_hessian_approx(hessian_approx, delta_gradient, delta_x)
+        
+        #store points  coordinates as the evaluation progresses used to plot progress
+        progress_x.extend((points[0][0], points[1][0]))
+        progress_y.extend((points[0][1], points[1][1]))
+
         print_in_console(points[0], current_gradient, hessian_approx)
         if stop(current_gradient, eps):
-            return point
             break
+    print(progress_x)
+    print(progress_y)
+    plot_graph(np.asarray(progress_x), np.asarray(progress_y))
+
 
 dfp(x = -2., y = -2. ,it_num = 45, eps = 0.01)
 
