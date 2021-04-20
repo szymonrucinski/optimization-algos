@@ -32,11 +32,22 @@ def update_hessian_approx(current_hessian_approx,delta_gradient, delta_x):
     # return current_hessian_approx + N(p,q) - M(current_hessian_approx,q)
     return current_hessian_approx + N(p,q) - M(current_hessian_approx,q)
 
-def stop_fpd(current_gradient,eps):
+def stop(current_gradient,eps):
     vector = current_gradient.flatten()
     return math.sqrt(vector[0]**2 + vector[1]**2)< eps
 
-def fpd(x,y,it_num, eps):
+
+def print_in_console(point, gradient,hessian):
+    print(f'POINTS: {point.flatten()}\n')
+    print(f'GRADIENT: {gradient.flatten()}\n')
+    print("HESSIAN:")
+    print('\n'.join(['\t'.join([str(cell) for cell in row]) for row in hessian]))
+    print("=============================================")
+
+
+
+
+def dfp(x,y,it_num, eps):
     #Dokładność
     #Macierz 2x2 o dodatnim wyznaczniku lub jednostkowa
     hessian_approx = np.identity(2)
@@ -59,12 +70,10 @@ def fpd(x,y,it_num, eps):
         delta_gradient = next_gradient - current_gradient 
         #4) Update Hessian
         hessian_approx = update_hessian_approx(hessian_approx, delta_gradient, delta_x)
-        print(points[0])
-        print("-------------------")
-
-        if stop_fpd(current_gradient, eps):
+        print_in_console(points[0], current_gradient, hessian_approx)
+        if stop(current_gradient, eps):
             return point
             break
 
-fpd(x = -2., y = -2. ,it_num = 45, eps = 0.01)
+dfp(x = -2., y = -2. ,it_num = 45, eps = 0.01)
 
