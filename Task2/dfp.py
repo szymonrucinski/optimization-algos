@@ -7,8 +7,8 @@ from line_search import get_alpha
 #https://slideplayer.com/slide/4260069/
 
 
-def fun(xy): 
-    return 100*(xy[1]**2 - xy[0]**2)+(1-xy[0]**2)
+def fun(x): 
+    return 4*x[0]**2 + x[1]**2 - 2*x[0]*x[1]
 
 def gradient(point):
     result = nd.Gradient(fun)([point[0],point[1]])
@@ -30,7 +30,7 @@ def update_hessian_approx(current_hessian_approx,delta_gradient, delta_x):
     p = delta_x
     q = delta_gradient
     # return current_hessian_approx + N(p,q) - M(current_hessian_approx,q)
-    return current_hessian_approx + N(p,q) -  M(current_hessian_approx,q)
+    return current_hessian_approx + N(p,q) - M(current_hessian_approx,q)
 
 def stop_fpd(current_gradient,eps):
     vector = current_gradient.flatten()
@@ -49,19 +49,22 @@ def fpd(x,y,it_num, eps):
         #2) Line search (inexact)
         points = []
         points.append(point)
-        alpha = get_alpha(fun, point, direction)
+        alpha = get_alpha(fun, point)
         ###(function)
-        point = point - np.dot(alpha,direction)
+        point = point + np.dot(alpha,direction)
         points.append(point)
-        delta_x = points[0] - points[1]
+        delta_x = points[1] - points[0]
         #3) Computer gradient for point x_(i+1)
         next_gradient = gradient(point)
-        delta_gradient = current_gradient - next_gradient 
+        delta_gradient = next_gradient - current_gradient 
         #4) Update Hessian
         hessian_approx = update_hessian_approx(hessian_approx, delta_gradient, delta_x)
-        print(hessian_approx)
+        print(points[0])
+        print("-------------------")
 
         if stop_fpd(current_gradient, eps):
+            return point
             break
 
-fpd(x = -1, y = -1 ,it_num = 35, eps = 0.01)
+fpd(x = -2., y = -2. ,it_num = 45, eps = 0.01)
+
