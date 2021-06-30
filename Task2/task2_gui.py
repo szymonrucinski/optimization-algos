@@ -14,7 +14,7 @@ def run():
     # f = eval(function.get())
     # print(f, epsilon.get(),x.get(), y.get(), iterations.get())
     if fields_not_empty:
-        dfp(float(x.get()),float(y.get()),int(iterations.get()),float(epsilon.get()))
+        dfp(float(x.get()),float(y.get()),int(iterations.get()),float(epsilon.get()), float(penalty.get()))
     else:
         messagebox.showerror("Error!", "Failure! At Least one of the entries is empty!")
 
@@ -67,6 +67,24 @@ iteration_limit_label.grid(column = 2, row =  0, padx=(30,10))
 iterations = StringVar()
 iteration_limit = Entry(window, width = 15, textvariable = iterations)
 iteration_limit.grid(column = 2, row = 1, padx=(30,10))
+
+
+
+###################PENALTY COEFFICIENT###############################
+penalty_coefficient_label = Label(window, width=15,text = "Penalty Coefficient")
+penalty_coefficient_label.grid(column = 2, row =  2, padx=(30,10))
+
+penalty = StringVar()
+penalty_entry = Entry(window, width = 15, textvariable = penalty)
+penalty_entry.grid(column = 2, row = 3, padx=(30,10))
+
+
+
+
+
+
+
+
 
 #Run program
 button = Button(window, text = "Run", command = run)
